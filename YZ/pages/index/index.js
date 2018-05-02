@@ -54,7 +54,7 @@ Page({
       hasUserInfo: true
     })
     wx.navigateTo({
-      url: '../main/main',
+      url: '../main/out',
     })
   }
 

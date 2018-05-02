@@ -1,14 +1,11 @@
 {
   "pages":[
-   
-    "pages/main/out",
     "pages/main/main",
-    "pages/index/index",
-    "pages/logs/logs",
-    "pages/main/in"
-
-    
+    "pages/main/out",
+    "pages/main/in",
+    "pages/logs/logs"
   ],
+
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",

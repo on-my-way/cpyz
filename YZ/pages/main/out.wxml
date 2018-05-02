@@ -23,8 +23,8 @@
     </view>
 
 	<view class = 'vip-info'>
-		<input id = 'vip_num' placeholder='姓名/手机号' bindblur='vip_num_confirm' bindconfirm='vip_num_confirm' cursor-spacing='20'></input>
-		<text style='margin-left:10px;'>总积分:{{vip_count}}</text>
+		<input id = 'vip_num' placeholder='会员卡号' bindblur='vip_num_confirm' bindconfirm='vip_num_confirm' cursor-spacing='20'></input>
+		<text style='margin-left:10px;'>积分:{{vip_count}}</text>
 	</view>
 
 	<view class = 'total-info'>
