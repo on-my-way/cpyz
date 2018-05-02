@@ -1,0 +1,38 @@
+<!--index.wxml-->
+<view class="page">
+	<text style='margin-left:10px;'>{{curr_time}}</text>
+</view>
+	<view class='items' wx:for='{{items}}' wx:key='item'>
+		<movable-area class='movable'>
+     	<movable-view class='item' id='{{item.index}}' direction = 'horizontal' out-of-bounds='true' bindchange='item_move'>
+			<view>
+				<image src='{{item.image}}'></image>
+			</view>
+			<view>
+				<text class='title'>{{item.title}}</text>
+			</view>
+			<view class='price'>
+				<text>价格:{{item.price}}</text>
+			</view>
+			<view class='num'>
+				<text>数量:{{item.num}}</text>
+			</view>
+		</movable-view>
+		</movable-area>
+		<view style='clear:both; height:10px'></view>
+    </view>
+
+	<view class = 'vip-info'>
+		<input id = 'vip_num' placeholder='姓名/手机号' bindblur='vip_num_confirm' bindconfirm='vip_num_confirm' cursor-spacing='20'></input>
+		<text style='margin-left:10px;'>总积分:{{vip_count}}</text>
+	</view>
+
+	<view class = 'total-info'>
+      <text space='true' decode='true'>合计:{{total_price}}&nbsp;实收:{{pay_price}}&nbsp;积分抵扣:{{vip_count_pay}}&nbsp;&nbsp; </text>
+      <input id='cutoff' placeholder='优惠' bindinput='cutoff_input' cursor-spacing='20'></input>
+	</view>
+    <view class="btn-submit">
+      <button bindtap='scanCode' type='primary'>扫码添加</button>
+      <button bindtap='stash' type='primary' loading='{{stash_loading}}'> 保存 </button>
+      <button bindtap='commit' type='primary'loading='{{commit_loading}}'> 确定 </button>
+    </view>

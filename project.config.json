@@ -1,0 +1,16 @@
+{
+	"client": "./YZ",
+	"svr": "./server",
+	"miniprogramRoot": "./YZ",
+	"qcloudRoot": "./server",
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"appid": "wx18499433fa9f35e2",
+	"projectname": "YZ",
+	"condition": {}
+}

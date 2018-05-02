@@ -1,0 +1,26 @@
+<!--index.wxml-->
+<view class="page"> {{curr_time}}
+  <view> <text>合计: {{total_price}} </text></view>
+      <view class='items' wx:for='{{items}}' wx:key='item'>
+        <view class='item'>
+          <image data-Type='{{item.index}}' bindtap='openCamera' src='{{item.image}}'></image>
+            <view class='input_title'>
+              <input bindinput='input' id='title:{{item.index}}'  placeholder='名称' value='{{item.title}}'  type="string"  />
+            </view>
+            <view class='input_price_and_num'>
+              <input bindinput='input' id='price:{{item.index}}' placeholder='进货价:{{item.in_price}}' type="number" disabled='{{item.in_price_disabel}}' />
+              <input bindinput='input' id='num:{{item.index}}' placeholder='数量:{{item.num}}' type="number" />
+            </view>
+			<checkbox-group id = '{{item.index}}' bindchange='check'>
+				<checkbox value='{{item.index}}' checked="{{item.checked}}"> </checkbox>
+			</checkbox-group>
+        </view>
+        <view style='clear:both; height:0'></view>
+      </view>
+    
+      <view class="btn">
+		<button bindtap='scanCode'   size="default"> 扫码添加 </button>
+        <button bindtap='btn_submit' size="default"> 保存 </button>
+	    <button bindtap='btn_delete' size="default"> 删除 </button>
+      </view>
+</view>

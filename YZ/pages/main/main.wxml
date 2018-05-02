@@ -1,0 +1,18 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="main">
+    <button type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}"
+        disabled="{{disabled}}" bindtap="button_in"> 扫码入库 </button>
+
+    <button type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}"
+        disabled="{{disabled}}" bindtap="button_out"> 扫码出库 </button>
+    
+    <button type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}"
+        disabled="{{disabled}}" bindtap="button_in_detal"> 库存清单 </button>
+    
+    <button type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}"
+        disabled="{{disabled}}" bindtap="button_out_detal"> 销售明细 </button>
+
+   </view>
+
+</view>
