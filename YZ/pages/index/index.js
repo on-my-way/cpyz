@@ -56,6 +56,32 @@ Page({
     wx.navigateTo({
       url: '../main/out',
     })
+  },
+
+  add_product: function(e) {
+    wx.navigateTo({
+      url: '../main/in',
+    })
+  },
+
+  product_info: function(e) {
+    wx.navigateTo({
+      url: '../main/prd',
+    })
+  },
+
+  vip_info: function(e) {
+    wx.navigateTo({
+      url: '../main/vip',
+    })
+  },
+
+  pay_product: function(e) {
+    wx.navigateTo({
+      url: '../main/out',
+    })
   }
+
+ 
 
 })

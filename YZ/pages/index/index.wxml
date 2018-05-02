@@ -1,8 +1,15 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <open-data class="userinfo-avatar"  type="userAvatarUrl"></open-data>
-    <open-data class="userinfo-nickname"  type="userNickName"></open-data>
-    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 登录 </button>
-  </view>
+	<view class='btn-manger'>
+		<button type='default' bindtap='add_product' > 添加商品 </button>
+		<button type='default' bindtap='product_info' > 库存信息 </button>
+		<button type='default' bindtap='vip_info' > 会员信息 </button>
+	</view >
+
+	<view style='height: 40px;'></view>
+
+	<view class='btn-pay'>
+		<button type='primary' bindtap='pay_product' > 扫码买单 </button>
+	</view >
+
 </view>
