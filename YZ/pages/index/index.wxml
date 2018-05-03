@@ -9,7 +9,7 @@
 	<view style='height: 40px;'></view>
 
 	<view class='btn-pay'>
-		<button type='primary' bindtap='pay_product' > 扫码买单 </button>
+		<button type='default' bindtap='pay_product' > 扫码买单 </button>
 	</view >
 
 </view>

@@ -1,5 +1,6 @@
 
 
+
 .item {
   background-color: #ffffff;
   width:90%; 
@@ -85,10 +86,12 @@ image {
 
 button {
   margin: 10px;
+  width:45%;
 }
 
-#.btn-submit {
+.btn-submit {
   display:flex;
   flex-direction:row;
-  /*justify-content: center;*/
+  justify-content: center;
+  height:66px;
 }

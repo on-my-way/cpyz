@@ -17,20 +17,32 @@ Page({
 	vip_count:'0',
 	vip_count_pay:'0',
     items: productes,
+	item_num: productes.length,
     curr_time: '',
     customer: "",
 	stash_loading: false,
 	commit_loading: false,
+	scrollHeight: 0,
   },
 
   onLoad: function () {
 	curr_date_time = util.formatTime(new Date())
     this.setData({
-      curr_time: '日期: ' + curr_date_time 
+      curr_time: '日期: ' + curr_date_time,
     })
 	the_list.prds = new Array()
 	the_list.date = curr_date_time
 	the_list.pay  = 0 
+	var that = this
+	wx.getSystemInfo({
+		success: function(res) {
+				console.log(res.windowHeight)
+			that.setData({
+	  			scrollHeight: res.windowHeight - 170,
+			})
+		}
+	})
+//	this.scanCode()
   },
 
   cutoff_input: function(e) {
@@ -54,8 +66,8 @@ Page({
 
 	for (var i=0; i < productes.length; i++) {
 		if (productes[i].uuid == prd.uuid) {
-			productes[i].num++
-			break
+//			productes[i].num++
+//			break
 		}
 	}
 	if (i == productes.length) {
@@ -65,6 +77,7 @@ Page({
 
     this.setData({
         items: productes,
+		item_num: productes.length -1 ,
         total_price: total_price.toString(),
 		pay_price: this.data.total_price
     })
@@ -78,6 +91,7 @@ Page({
 	}
     this.setData({
         items: productes,
+		item_num: productes.length -1,
         total_price: total_price.toString(),
 		pay_price: this.data.total_price 
     })
@@ -93,19 +107,28 @@ Page({
           uuid: id,
         },
         success: function(res) {
-          util.showSuccess('成功')
-          var item = {}
-          console.log('req suss', res.data.data[0])
-          item.image = res.data.data[0].image
-          item.title = res.data.data[0].title
-          item.price = res.data.data[0].sale_price
-		  item.uuid = id
-		  item.num = 1
-          that.add_product(item)
+		  if (res.data.data.length == 0) {
+			wx.showModal({
+			  title: '商品信息不存在',
+			  showCancel:false,
+			})
+		  } else {
+			  //util.showSuccess('成功')
+			  var item = {}
+			  console.log('req suss', res.data.data[0])
+			  item.image = res.data.data[0].image
+			  item.title = res.data.data[0].title
+			  item.price = res.data.data[0].sale_price
+			  item.uuid = id
+			  item.num = 1
+			  that.add_product(item)
+		  }
+		  wx.hideToast()
         },
         fail: function(res) {
           util.showModel('请求失败', res)
         }
+
       })
   },
 
