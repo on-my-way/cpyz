@@ -9,6 +9,7 @@ var commited = false;
 var stashed = false;
 var curr_date_time
 var the_list = {};
+var stash_num = 0;
 
 Page({
   data: {
@@ -23,6 +24,7 @@ Page({
 	stash_loading: false,
 	commit_loading: false,
 	scrollHeight: 0,
+	stash_text: '保存',
   },
 
   onLoad: function () {
@@ -237,6 +239,11 @@ Page({
         console.log(res.data)
 		if (res.data.code == 0) {
        		util.showSuccess('保存成功')
+			stash_num += 1
+			console.log(stash_num);
+			that.setData({
+				stash_text: '保存(' + stash_num.toString() + ')',
+			})
 		} else {
 			util.showModel('保存失败', res)
 			stashed = false
