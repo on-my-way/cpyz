@@ -1,11 +1,12 @@
 
 
+
 input {
-  margin: 6px;
+/*  margin: 6px; */
   border-style: solid;
   border-width: 1px;
-  border-color: #c0c0c0;
-  background-color: #f0f0f0;
+  border-color: #e0e0e0;
+  /*background-color: #f0f0f0;*/
 }
 
 button {
@@ -16,25 +17,63 @@ button {
 
 
 .item {
-  background-color: #e0e0e0;
-  width:90%;
-  height: 128px;
-  margin-left:1%;
-  margin-bottom:10px;
+  background-color: #ffffff;
+  width:90%; 
+  height:128px; 
+  margin-left:5%;
   float:left;
   position: relative;
-}
-.input_title{
-  display:flex;
-}
-.input_price_and_num{
-  display:flex;
-  flex-direction:row;
+  /*display:flex;
+  justify-content: center;*/
+  border-style: solid;
+  border-top-color:#eeeeee;
+  border-top-width:1px;
+  border-bottom-width:0;
+  border-left-width:0;
+  border-right-width:0;
 }
 
+
 image {
-  background-color: #aaaaaa;
-  width: 128px;
-  height: 128px;
-  float:left;
+  background-color: #eeeeee;
+  width: 112px;
+  height: 112px;
+  position:absolute;
+  left:4px;
+  top:8px;
 }
+
+.input_title{
+  background-color: #ffffff;
+  position:absolute;
+  top: 4px;
+  left:130px;
+}
+
+.in_price{
+  position:absolute;
+  top: 50px;
+  left: 130px;
+  width: 60px;
+}
+
+.sale_price {
+  position:absolute;
+  top: 50px;
+  left: 210px;
+  width: 60px;
+}
+
+.num{
+  position:absolute;
+  top: 50px;
+  left: 290px;
+  width: 50px;
+}
+
+.btn {
+  display:flex;
+  justify-content: center;
+}
+
+

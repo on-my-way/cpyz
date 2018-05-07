@@ -77,7 +77,9 @@ image {
   margin-left:20px;
   margin-bottom:10px;
 }
+
 #vip_num {
+  width:160px;
   border-style: solid;
   border-width: 1px;
   border-color: #eeeeee;

@@ -57,6 +57,7 @@ module.exports = {
           } else {
             res = await mysql('product').where('uuid', '=', rec.uuid).update({
               num: parseInt(rec.num) + result[0].num,
+			  sale_price: Number(arg.info.prds[i].sale_price),
               image: arg.info.prds[i].image
             })
           }

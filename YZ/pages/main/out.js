@@ -164,6 +164,9 @@ Page({
 
   vip_num_confirm: function(e) {
 	var that = this
+	if (e.detail.value.length == 0) {
+		return
+	}
 	console.log('confirm: ' + e.detail.value)
 	wx.request({
         url: config.service.requestDBUrl,
@@ -211,6 +214,20 @@ Page({
 	}
 	the_list.pay  = this.data.pay_price
 	return 0
+  },
+
+  btn_more: function (e) {
+	wx.showActionSheet({
+	itemList: ['添加商品'],
+    success: function(e) {
+		console.log(e.tapIndex)
+		if (e.tapIndex == 0) {
+		  wx.navigateTo({
+        	url: './in',
+		  })
+		}
+	}
+	})
   },
 
   stash: function (e) {

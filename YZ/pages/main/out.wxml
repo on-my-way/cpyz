@@ -27,7 +27,7 @@
 
 	<view class = 'vip-info'>
 		<input id = 'vip_num' placeholder='会员卡号' bindblur='vip_num_confirm' bindconfirm='vip_num_confirm' cursor-spacing='20'></input>
-		<!--<text style='margin-left:10px;'>积分:{{vip_count}}</text>-->
+		<text style='margin-left:10px;'>积分:{{vip_count}}</text>
         <input id='cutoff' placeholder='再减' bindinput='cutoff_input' cursor-spacing='20'></input>
 	</view>
 
@@ -35,7 +35,8 @@
       <text space='true' decode='true'>合计:{{total_price}}&nbsp;&nbsp;&nbsp;积分抵扣:{{vip_count_pay}}&nbsp;&nbsp;&nbsp;实收:{{pay_price}}</text>
 	</view>
     <view class="btn-submit">
-      <button bindtap='stash' type='primary' loading='{{stash_loading}}'> {{stash_text}} </button>
+      <!--<button bindtap='stash' type='primary' loading='{{stash_loading}}'> 保存 </button>-->
+      <button bindtap='btn_more' type='primary' > 更多 </button>
       <button bindtap='commit' type='primary' loading='{{commit_loading}}'> 完成 </button>
       <button bindtap='scanCode' type='primary'>扫码添加</button>
     </view>

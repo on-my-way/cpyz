@@ -65,8 +65,10 @@ Page({
 		if (id[0] == 'title') {
 			productes[parseInt(id[1])].title = value
 			return
-		} else if (id[0] == 'price') {
+		} else if (id[0] == 'in_price') {
 			productes[parseInt(id[1])].in_price = value
+		} else if (id[0] == 'sale_price') {
+			productes[parseInt(id[1])].sale_price = value
 		} else if (id[0] == 'num') {
 			productes[parseInt(id[1])].num = parseInt(value)
 		}
