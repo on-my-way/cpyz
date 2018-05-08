@@ -1,15 +1,13 @@
 <!--index.wxml-->
 <view class="container">
-	<view class='btn-manger'>
-		<button type='default' bindtap='add_product' > 添加商品 </button>
-		<button type='default' bindtap='product_info' > 库存信息 </button>
-		<button type='default' bindtap='vip_info' > 会员信息 </button>
-	</view >
-
-	<view style='height: 40px;'></view>
-
-	<view class='btn-pay'>
-		<button type='default' bindtap='pay_product' > 扫码买单 </button>
-	</view >
-
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
 </view>

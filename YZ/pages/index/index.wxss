@@ -19,15 +19,3 @@
 .usermotto {
   margin-top: 200px;
 }
-
-button {
-	margin:20px;	
-}
-
-.btn-manger {
-	background-color: #23bb22;
-}
-
-.btn-pay {
-	background-color: #23bb22;
-}

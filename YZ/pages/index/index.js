@@ -4,7 +4,7 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello 臭屁小柚子 !',
+    motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -21,6 +21,9 @@ Page({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
+		wx.navigateTo({
+		  url: '../main/out'
+		})
     } else if (this.data.canIUse){
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
@@ -29,6 +32,9 @@ Page({
           userInfo: res.userInfo,
           hasUserInfo: true
         })
+		wx.navigateTo({
+		  url: '../main/out'
+		})
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
@@ -39,12 +45,12 @@ Page({
             userInfo: res.userInfo,
             hasUserInfo: true
           })
+			wx.navigateTo({
+			  url: '../main/out'
+			})
         }
       })
     }
-    /*wx.navigateTo({
-      url: '../main/in?id=1',
-    })*/
   },
   getUserInfo: function(e) {
     console.log(e)
@@ -54,34 +60,7 @@ Page({
       hasUserInfo: true
     })
     wx.navigateTo({
-      url: '../main/out',
-    })
-  },
-
-  add_product: function(e) {
-    wx.navigateTo({
-      url: '../main/in',
-    })
-  },
-
-  product_info: function(e) {
-    wx.navigateTo({
-      url: '../main/prd',
-    })
-  },
-
-  vip_info: function(e) {
-    wx.navigateTo({
-      url: '../main/vip',
-    })
-  },
-
-  pay_product: function(e) {
-    wx.navigateTo({
-      url: '../main/out',
+      url: '../main/out'
     })
   }
-
- 
-
 })

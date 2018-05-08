@@ -20,7 +20,7 @@
       </view>
     
       <view class="btn">
-	    <button bindtap='btn_delete' type='primary' size="default"> 删除 </button>
+	    <!--<button bindtap='btn_delete' type='primary' size="default"> 删除 </button>-->
         <button bindtap='btn_submit' type='primary' size="default"> 保存 </button>
 		<button bindtap='scanCode'   type='primary' size="default"> 扫码添加 </button>
       </view>

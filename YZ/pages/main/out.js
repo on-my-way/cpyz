@@ -10,13 +10,14 @@ var stashed = false;
 var curr_date_time
 var the_list = {};
 var stash_num = 0;
+var cutoff = 0;
 
 Page({
   data: {
-    total_price: '0',
-	pay_price:'0',
-	vip_count:'0',
-	vip_count_pay:'0',
+    total_price: 0,
+	pay_price:0,
+	vip_count:0,
+	vip_count_pay:0,
     items: productes,
 	item_num: productes.length,
     curr_time: '',
@@ -47,17 +48,24 @@ Page({
 //	this.scanCode()
   },
 
+  price_change: function() {
+	 console.log('cutoff:', cutoff)
+	 var max_pay = (total_price - cutoff) * 0.05
+	 var pay = this.data.vip_count <= max_pay ? this.data.vip_count : max_pay
+	 this.setData({
+		vip_count_pay: pay.toString(),
+		pay_price: total_price - pay - cutoff,
+        total_price: total_price.toString(),
+	 })
+  },
+
   cutoff_input: function(e) {
 	if (e.detail.value == "") {
-		return
+		cutoff = 0
+	} else {
+		cutoff = Number(e.detail.value);
 	}
-	var pay_price = total_price - parseInt(e.detail.value)
-	if (pay_price < 0) {
-		pay_price = 0
-	}
-    this.setData({
-		pay_price: pay_price
-    })
+	this.price_change()
   },
   
   add_product: function(prd) {
@@ -80,9 +88,9 @@ Page({
     this.setData({
         items: productes,
 		item_num: productes.length -1 ,
-        total_price: total_price.toString(),
-		pay_price: this.data.total_price
     })
+	
+	this.price_change()
   },
 
   del_product: function(index) {
@@ -94,9 +102,8 @@ Page({
     this.setData({
         items: productes,
 		item_num: productes.length -1,
-        total_price: total_price.toString(),
-		pay_price: this.data.total_price 
     })
+	this.price_change()
   },
 
   get_product_info_from_db: function(id) {
@@ -180,12 +187,10 @@ Page({
 				return
 			}
 			var count = Number(res.data.data[0].count)
-			var max_pay = total_price * 0.05
-			var pay = count <= max_pay ? count : max_pay
 			that.setData({
 				vip_count: count,
-				vip_count_pay: pay.toString()
 			})
+			that.price_change()
         },
         fail: function(res) {
           util.showModel('请求失败', res)
