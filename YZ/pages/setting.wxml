@@ -1,0 +1,7 @@
+<view class="page" >
+	<form bindsubmit='formSubmit'>
+		<input name = 'give_points' placeholder='积分赠与千分比' value='{{give_points}}'></input>
+		<input name = 'take_points' placeholder='积分抵扣千分比' value='{{take_points}}'></input>
+		<button formType= 'submit' type='primary' loading='{{saving}}'>保存</button>
+	</form>
+</view>

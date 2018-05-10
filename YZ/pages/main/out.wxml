@@ -36,7 +36,7 @@
 	</view>
     <view class="btn-submit">
       <!--<button bindtap='stash' type='primary' loading='{{stash_loading}}'> 保存 </button>-->
-      <button bindtap='btn_more' type='primary' > 更多 </button>
+      <button type='primary' open-type='getUserInfo' bindgetuserinfo="getUserInfo" > 我的 </button>
       <button bindtap='commit' type='primary' loading='{{commit_loading}}'> 完成 </button>
       <button bindtap='scanCode' type='primary'>扫码添加</button>
     </view>

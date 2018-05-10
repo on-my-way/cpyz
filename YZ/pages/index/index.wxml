@@ -1,13 +1,43 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+<view class="page" >
+	<view class='head-info'>
+		<text style='margin-left:10px;'>{{curr_time}}</text>
+	</view>
+	<scroll-view scroll-y class = 'item-container' style='height:{{scrollHeight}}px;' scroll-into-view='items{{item_num}}'>
+	<view id= 'items{{item.index}}' class='items' wx:for='{{items}}' wx:key='item'>
+		<movable-area class='movable'>
+     	<movable-view class='item' id='{{item.index}}' direction = 'horizontal' out-of-bounds='true' bindchange='item_move'>
+			<view>
+				<image src='{{item.image}}'></image>
+			</view>
+			<view>
+				<text class='title'>{{item.title}}</text>
+			</view>
+			<view class='price'>
+				<text>价格:{{item.price}}</text>
+			</view>
+			<view class='num'>
+				<text>数量:{{item.num}}</text>
+			</view>
+		</movable-view>
+		</movable-area>
+		<view style='clear:both; height:10px'></view>
+    </view>
+	</scroll-view>
+
+	<view class = 'vip-info'>
+		<input id = 'vip_num' placeholder='会员卡号' bindblur='vip_num_confirm' bindconfirm='vip_num_confirm' cursor-spacing='20'></input>
+		<text style='margin-left:10px;'>积分:{{vip_count}}</text>
+        <input id='cutoff' placeholder='再减' bindinput='cutoff_input' cursor-spacing='20'></input>
+	</view>
+
+	<view class = 'total-info'>
+      <text space='true' decode='true'>合计:{{total_price}}&nbsp;&nbsp;&nbsp;积分抵扣:{{vip_count_pay}}&nbsp;&nbsp;&nbsp;实收:{{pay_price}}</text>
+	</view>
+    <view class="btn-submit">
+      <!--<button bindtap='stash' type='primary' loading='{{stash_loading}}'> 保存 </button>-->
+      <button type='primary' open-type='getUserInfo' bindgetuserinfo="getUserInfo" > 我的 </button>
+      <button bindtap='commit' type='primary' loading='{{commit_loading}}'> 完成 </button>
+      <button bindtap='scanCode' type='primary'>扫码添加</button>
+    </view>
 </view>

@@ -221,18 +221,29 @@ Page({
 	return 0
   },
 
-  btn_more: function (e) {
+  show_my_place: function () {
 	wx.showActionSheet({
-	itemList: ['添加商品'],
+	itemList: ['添加商品', '设置'],
     success: function(e) {
 		console.log(e.tapIndex)
 		if (e.tapIndex == 0) {
 		  wx.navigateTo({
         	url: './in',
 		  })
+		} if (e.tapIndex == 1) {
+		  wx.navigateTo({
+        	url: './setting',
+		  })
 		}
 	}
 	})
+  },
+
+  getUserInfo: function(e) {
+    console.log(e)
+	if (e.detail.errMsg == "getUserInfo:ok") {
+		this.show_my_place()
+	}
   },
 
   stash: function (e) {

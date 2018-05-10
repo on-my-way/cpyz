@@ -27,7 +27,9 @@ module.exports = {
       res = await mysql("product").select('*').where({ 'uuid': ctx.query.uuid })
     } else if (arg.name == 'vip') {
       res = await mysql('vip').select('count').where({'uuid':ctx.query.uuid})
-    }
+    } else if (arg.name == 'setting') {
+      res = await mysql('setting').select('*')
+	}
     /*var data = {};
     data.image = 'https://qcloudtest-1256599268.cos.ap-guangzhou.myqcloud.com/1524797808081-HkOu-zgpz.jpg'
     data.title = 'little gril'
@@ -64,7 +66,7 @@ module.exports = {
         }
         await mysql('in_list').insert(recs)
     
-      } else {
+      } else if (arg.name == 'out') {
         var data = []
         var info = arg.info
         for (var i = 0; i < arg.info.prds.length; i++) {
@@ -83,7 +85,14 @@ module.exports = {
         d.pay = info.pay
         d.state = arg.name
         res = await mysql('out_list').insert(d)
-      }
+      } else if (arg.name == 'setting') {
+          result = await mysql("setting").select('*')
+          if (result.length == 0) {
+		      res = await mysql('setting').insert(arg.info)    
+		  } else {
+		      res = await mysql('setting').update(arg.info)    
+		  }
+	  }
       
     ctx.state.data = res
   }
