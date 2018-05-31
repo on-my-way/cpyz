@@ -13,8 +13,9 @@
 			<view>
 				<text class='title'>{{item.title}}</text>
 			</view>
-			<view class='price'>
-				<text>价格:{{item.price}}</text>
+			<view class='price'>价格: </view>
+			<view class='price_input'>
+				<input id='{{item.index}}' value='{{item.price}}' bindinput='price_input'> </input>
 			</view>
 			<view class='num'>
 				<text>数量:{{item.num}}</text>
@@ -26,13 +27,13 @@
 	</scroll-view>
 
 	<view class = 'vip-info'>
-		<input id = 'vip_num' placeholder='会员卡号' bindblur='vip_num_confirm' bindconfirm='vip_num_confirm' cursor-spacing='20'></input>
-		<text style='margin-left:10px;'>积分:{{vip_count}}</text>
-        <input id='cutoff' placeholder='再减' bindinput='cutoff_input' cursor-spacing='20'></input>
+		<input id = 'vip_num' value='{{vip_number}}' placeholder='会员卡号' bindblur='vip_num_confirm' bindconfirm='vip_num_confirm' cursor-spacing='20'></input>
+		<text style='margin-left:10px;' decode='true'>积分:&nbsp;{{vip_points}}</text>
+        <!--<input id='discount' placeholder='再减' bindinput='discount_input' cursor-spacing='20'></input>-->
 	</view>
 
 	<view class = 'total-info'>
-      <text space='true' decode='true'>合计:{{total_price}}&nbsp;&nbsp;&nbsp;积分抵扣:{{vip_count_pay}}&nbsp;&nbsp;&nbsp;实收:{{pay_price}}</text>
+      <text space='true' decode='true'>合计:{{total_price}}&nbsp;&nbsp;&nbsp;积分抵扣:{{vip_deduct}}&nbsp;&nbsp;&nbsp;实收:{{pay_price}}</text>
 	</view>
     <view class="btn-submit">
       <!--<button bindtap='stash' type='primary' loading='{{stash_loading}}'> 保存 </button>-->

@@ -4,42 +4,59 @@ var util = require('../../utils/util.js')
 var productes = []
 //	{'title':'AA', 'num':'2', 'price':'100', 'index':0},
 //	{'title':'BB', 'num':'2', 'price':'100', 'index':1}];
-var total_price = 0
 var commited = false;
 var stashed = false;
 var curr_date_time
+
 var the_list = {};
+
 var stash_num = 0;
-var cutoff = 0;
+var setting_data_req = 0;
 
 Page({
   data: {
     total_price: 0,
 	pay_price:0,
-	vip_count:0,
-	vip_count_pay:0,
+	vip_points: 0,
+	vip_deduct: '0',
     items: productes,
 	item_num: productes.length,
     curr_time: '',
-    customer: "",
+    vip_number: '',
 	stash_loading: false,
 	commit_loading: false,
 	scrollHeight: 0,
 	stash_text: '保存',
+	take_points: 0,
+	give_points: 0,
   },
 
-  onLoad: function () {
+  varInit: function() {
 	curr_date_time = util.formatTime(new Date())
-    this.setData({
-      curr_time: '日期: ' + curr_date_time,
-    })
 	the_list.prds = new Array()
 	the_list.date = curr_date_time
 	the_list.pay  = 0 
+	productes = []
+	commited = false;
+    this.setData({
+      curr_time: '日期: ' + curr_date_time,
+      items: productes,
+	  item_num: 0,
+      total_price: 0,
+	  pay_price:0,
+	  vip_points: 0,
+	  vip_deduct: '0',
+      vip_number: '',
+	  
+    })
+  },
+
+  onLoad: function () {
+	this.varInit()
 	var that = this
 	wx.getSystemInfo({
 		success: function(res) {
-				console.log(res.windowHeight)
+			console.log(res.windowHeight)
 			that.setData({
 	  			scrollHeight: res.windowHeight - 170,
 			})
@@ -49,52 +66,72 @@ Page({
   },
 
   price_change: function() {
-	 console.log('cutoff:', cutoff)
-	 var max_pay = (total_price - cutoff) * 0.05
-	 var pay = this.data.vip_count <= max_pay ? this.data.vip_count : max_pay
+	 var max = parseInt(this.data.total_price * this.data.take_points / 1000)
+	 var vip_deduct = this.data.vip_points <= max ? this.data.vip_points: max
 	 this.setData({
-		vip_count_pay: pay.toString(),
-		pay_price: total_price - pay - cutoff,
-        total_price: total_price.toString(),
+		vip_deduct: vip_deduct.toString(),
+		pay_price: this.data.total_price - vip_deduct,
 	 })
+	 the_list.vip_points = this.data.vip_points - this.data.vip_deduct +
+		  				parseInt(this.data.pay_price * this.data.give_points / 1000)
+	 console.log("vip_points:", the_list.vip_points)
   },
 
-  cutoff_input: function(e) {
+	/*
+  discount_input: function(e) {
 	if (e.detail.value == "") {
-		cutoff = 0
+		the_list.discount = 0
 	} else {
-		cutoff = Number(e.detail.value);
+		the_list.discount = Number(e.detail.value);
 	}
 	this.price_change()
+  }, */
+
+  price_input: function(e) {
+	var price
+	console.log(e);
+	if (e.detail.value == "") {
+		price = 0
+	} else {
+		price = Number(e.detail.value);
+	}
+	var index = e.target.id
+	var total_price = this.data.total_price - (productes[index].price - price) * productes[index].num
+	productes[index].price = price
+    this.setData({
+		total_price: total_price,
+	})
+	this.price_change()
   },
+
+
   
   add_product: function(prd) {
-    console.log('price', prd.price)
-    total_price += new Number(prd.price)
-    console.log('total_price:', total_price)
 	stashed = false
 
 	for (var i=0; i < productes.length; i++) {
 		if (productes[i].uuid == prd.uuid) {
-//			productes[i].num++
-//			break
+			productes[i].num++
+			break
 		}
 	}
 	if (i == productes.length) {
 		prd.index = productes.length
 		productes = productes.concat(prd)
 	}
+	var total_price = this.data.total_price + productes[i].price
 
     this.setData({
         items: productes,
 		item_num: productes.length -1 ,
+		total_price: total_price,
     })
 	
 	this.price_change()
   },
 
   del_product: function(index) {
-	total_price -= Number(productes[index].num) * Number(productes[index].price)
+	var total_price = this.data.total_price - Number(productes[index].num) * Number(productes[index].price)
 	productes.splice(index, 1)
 	for (var i = index; i < productes.length; i++) {
 		productes[i].index = index;	
@@ -102,11 +139,40 @@ Page({
     this.setData({
         items: productes,
 		item_num: productes.length -1,
+		total_price: total_price,
     })
 	this.price_change()
   },
 
+  request_setting_data: function() {
+    var that = this
+	wx.request({
+		url: config.service.requestDBUrl,
+		data: {
+		  name: "setting",
+		},
+		success: function(res) {
+		  console.log(res)
+		  if (res.data.data.length != 0 && Object.keys(res.data.data).length!=0) {
+			  that.setData({
+				give_points: res.data.data[0].give_points.toString(),
+				take_points: res.data.data[0].take_points.toString()
+			  })
+		  }
+		},
+		fail: function(res) {
+		  util.showModel('请求失败', '无法连接服务器')
+		},
+	})
+  },
+
   get_product_info_from_db: function(id) {
+
+	  if (setting_data_req == 0) {
+		  setting_data_req = 1;
+		  this.request_setting_data();
+	  }
+
       var that = this
       util.showBusy('正在查询')
       wx.request({
@@ -174,7 +240,8 @@ Page({
 	if (e.detail.value.length == 0) {
 		return
 	}
-	console.log('confirm: ' + e.detail.value)
+	the_list.vip_name = e.detail.value
+
 	wx.request({
         url: config.service.requestDBUrl,
         data: {
@@ -186,9 +253,8 @@ Page({
 			if (res.data.data[0].length == 0) {
 				return
 			}
-			var count = Number(res.data.data[0].count)
 			that.setData({
-				vip_count: count,
+				vip_points: Number(res.data.data[0].count)
 			})
 			that.price_change()
         },
@@ -204,7 +270,6 @@ Page({
 		item.uuid = productes[i].uuid
 		item.num = productes[i].num
 		item.price = productes[i].price
-		item.customer = this.data.customer 
 
 		console.log(item.price)
 
@@ -216,9 +281,11 @@ Page({
 			return -1
 		}
 		the_list.prds = the_list.prds.concat(item)
+		console.log('item:', item);
+		console.log('list:', the_list);
 	}
-	the_list.pay  = this.data.pay_price
-	return 0
+	the_list.pay    = this.data.pay_price
+	return productes.length 
   },
 
   show_my_place: function () {
@@ -253,7 +320,7 @@ Page({
     }
     stashed = true
 
-	if (this.generate_list_info() < 0) {
+	if (this.generate_list_info() <= 0) {
 		return
 	}
 	this.setData({
@@ -294,19 +361,14 @@ Page({
     })  
   },
 
-  commit: function (e) {
-    if (commited == true) {
-      return;
-    } 
-    commited = true
-
-	if (this.generate_list_info() < 0) {
-		return
-	}
+  commit_list: function() {
 	this.setData({
 		commit_loading: true,
 	})
 	var that = this
+	
+
+    commited = true
 
     wx.request({
       url: config.service.requestDBUrl,
@@ -321,9 +383,7 @@ Page({
           title: '交易成功',
           showCancel:false,
           complete: function (res) {
-            wx.navigateBack({
-              delta:1
-            })
+			that.varInit()
           }
         })
       },
@@ -337,6 +397,27 @@ Page({
 		})
 	  }
     })
+  },
+
+  commit: function (e) {
+    if (commited == true) {
+      return;
+    } 
+
+	if (this.generate_list_info() <= 0) {
+		return
+	}
+
+	var that = this
+
+	wx.showModal({
+		title: '确认提交订单',
+		success: function(res) {
+			if (res.confirm) {
+				that.commit_list()
+			}
+		}
+	})
   },
 
 })

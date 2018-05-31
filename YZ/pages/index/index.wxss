@@ -57,16 +57,23 @@ image {
   left:130px;
 }
 
-.price{
+.price {
   position:absolute;
   bottom: 5px;
   left: 130px;
 }
 
+.price_input {
+  position:absolute;
+  bottom: 4px;
+  left: 190px;
+  width: 80px;
+}
+
 .num{
   position:absolute;
   bottom: 5px;
-  right: 60px;
+  right: 30px;
 }
 
 .vip-info {
@@ -93,7 +100,7 @@ image {
   /*position: relative;*/
 }
 
-#cutoff {
+#discount {
   width: 80px;
   margin-left: 20px;
   border-style: solid;

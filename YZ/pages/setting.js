@@ -12,6 +12,7 @@ Page({
 
 	onLoad: function() {
 		var that = this
+		util.showBusy('查询中')
 		wx.request({
         	url: config.service.requestDBUrl,
 			data: {
@@ -25,10 +26,11 @@ Page({
 					take_points: res.data.data[0].take_points.toString()
 				  })
 			  }
+			  wx.hideToast()
 		    },
 			fail: function(res) {
 			  util.showModel('请求失败', '无法连接服务器')
-			}
+			},
 		})
 	},
 
@@ -36,7 +38,7 @@ Page({
 		console.log(res.detail.value)
 		var that = this
 		this.setData({
-			saving: false,
+			saving: true,
 		})
     	wx.request({
       		url: config.service.requestDBUrl,
