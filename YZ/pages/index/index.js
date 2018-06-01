@@ -204,7 +204,7 @@ Page({
           util.showModel('请求失败', res)
         },
 		complete: function(res) {
-          util.showModel('OK', res)
+         // util.showModel('OK', res)
 		}
 
       })

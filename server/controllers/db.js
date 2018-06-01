@@ -85,6 +85,13 @@ module.exports = {
         d.pay = info.pay
         d.state = arg.name
         res = await mysql('out_list').insert(d)
+
+        console.log(arg.info)
+        if (arg.info.vip_name != '') {
+          res = await mysql('vip').where('uuid', '=',arg.info.vip_name).update({count:arg.info.vip_points})
+        }
+
+
       } else if (arg.name == 'setting') {
           result = await mysql("setting").select('*')
           if (result.length == 0) {
