@@ -5,7 +5,8 @@ from datetime import date,datetime
 
 
 def post_to_db(date, prds):
-    url = "https://kc95ihcf.qcloud.la/weapp/db"
+   # url = "https://kc95ihcf.qcloud.la/weapp/db"
+    url = 'https://342591173.ruizhishang.xyz/wwapp/db';
     headers = {'Content-Type': 'application/json'}
     d = json.dumps({
         'name':'in',
@@ -33,8 +34,8 @@ def get_merged_cell(row, merge):
 #ctype： 0 empty,1 string, 2 number, 3 date, 4 boolean, 5 error
 
 def read_xls_file():
-     xls_file = xlrd.open_workbook(r'./aa.xls', formatting_info=True)
-     sheet1 = xls_file.sheet_by_index(0)
+     xls_file = xlrd.open_workbook(r'./瑞之尚.xls', formatting_info=True)
+     sheet1 = xls_file.sheet_by_index(5)
 
      nrows = sheet1.nrows
      nclos = sheet1.ncols
